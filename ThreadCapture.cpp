@@ -236,6 +236,8 @@ bool ThreadCaptureImpl::PtraceThreadInfo(pid_t tid, ThreadInfo& thread_info) {
       offsetof(struct user_pt_regs, sp) / sizeof(uintptr_t)
 #elif defined(__mips__) || defined(__mips64__)
       offsetof(struct pt_regs, regs[29]) / sizeof(uintptr_t)
+#elif defined(__loongarch__) || (__loongarch_grlen == 64)
+      offsetof(struct user_regs_struct, gpr) / sizeof(uintptr_t) + LARCH_REG_SP
 #else
 #error Unrecognized architecture
 #endif
