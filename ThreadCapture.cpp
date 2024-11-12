@@ -232,6 +232,8 @@ bool ThreadCaptureImpl::PtraceThreadInfo(pid_t tid, ThreadInfo& thread_info) {
       offsetof(struct pt_regs, ARM_sp) / sizeof(uintptr_t)
 #elif defined(__i386__)
       offsetof(struct pt_regs, esp) / sizeof(uintptr_t)
+#elif defined(__loongarch64)
+      offsetof(struct user_pt_regs, regs) / sizeof(uintptr_t) + LARCH_REG_SP
 #elif defined(__riscv)
       offsetof(struct user_regs_struct, sp) / sizeof(uintptr_t)
 #elif defined(__x86_64__)
